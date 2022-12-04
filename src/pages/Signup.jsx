@@ -9,7 +9,7 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar from "../components/header/NavBar";
@@ -218,15 +218,22 @@ const Signup = () => {
                     </div>
                   </div>
 
-                  <div className="pt-4">
-                    <button className="bg-gradient-to-l from-[#F39531] to-[#DC5921] text-center  w-full text-base py-3 text-white rounded-3xl border-deepBlue  font-medium">
-                      {loading ? "Loading" : "Sign up"}
-                    </button>
-                  </div>
+                  <Link to="/dashboard">
+                    <div className="pt-4">
+                      <button className="bg-gradient-to-l from-[#F39531] to-[#DC5921] text-center  w-full text-base py-3 text-white rounded-3xl border-deepBlue  font-medium">
+                        {loading ? "Loading" : "Sign up"}
+                      </button>
+                    </div>
+                  </Link>
 
                   <div className="text-center py-4">
                     Already have an account{" "}
-                    <span className="text-deepBlue font-black">Sign In</span>
+                    <Link to="/">
+                      {" "}
+                      <span className="text-deepBlue font-black">
+                        Sign In
+                      </span>{" "}
+                    </Link>
                   </div>
                 </form>
               </div>
