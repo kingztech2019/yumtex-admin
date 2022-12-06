@@ -96,11 +96,11 @@ function Header({ sidebarOpen, setSidebarOpen }) {
             {/* 
            
             <Help /> */}
-            <div>
+            {/* <div>
               <button className="rounded-2xl bg-deepBlue px-5 py-3 text-white ">
                 My Orders
               </button>
-            </div>
+            </div> */}
             <Notifications />
             {/*  Divider */}
             <hr className="w-px h-6 bg-slate-200 mx-3" />
