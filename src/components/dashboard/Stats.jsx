@@ -42,11 +42,11 @@ export default function Stats() {
           <div>
             <div className="inline-flex">
               <div>
-                <img src="/customer-icon.svg" />
+                <img src="/driver.svg" />
               </div>
               <div className="font-medium pl-2">
                 220k
-                <div className="font-normal">Products</div>
+                <div className="font-normal">Drivers</div>
               </div>
             </div>
           </div>

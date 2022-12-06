@@ -90,7 +90,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
           </button>
           {/* Logo */}
           <NavLink end to="/" className="block">
-            <img src="fekomi-logo.svg" />
+            <img src="logo.svg" />
           </NavLink>
         </div>
 
