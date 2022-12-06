@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { COLUMNS } from "../../column";
 import TableHeaders from "../utils/TableHeaders";
+import DriverModal from "./modal/DriverModal";
 
 export default function StockTable() {
+  const [modalOpen, setModalOpen] = useState();
   return (
     <div className="pt-7">
+      <DriverModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
       <div class="flex flex-col">
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -30,32 +33,26 @@ export default function StockTable() {
                       scope="col"
                       class="text-sm font-medium text-[#174A84] px-6 py-4 text-left"
                     >
-                      Category
+                      Email Address
                     </th>
                     <th
                       scope="col"
                       class="text-sm font-medium text-[#174A84] px-6 py-4 text-left"
                     >
-                      No Available
+                      Phone Number
                     </th>
                     <th
                       scope="col"
                       class="text-sm font-medium text-[#174A84] px-6 py-4 text-left"
                     >
-                      Number Sold
+                      No of Rides
                     </th>
 
                     <th
                       scope="col"
                       class="text-sm font-medium text-[#174A84] px-6 py-4 text-left"
                     >
-                      SKU Number
-                    </th>
-                    <th
-                      scope="col"
-                      class="text-sm font-medium text-[#174A84] px-6 py-4 text-left"
-                    >
-                      Price (NGN)
+                      Motorcycle Type
                     </th>
                     <th
                       scope="col"
@@ -63,10 +60,6 @@ export default function StockTable() {
                     >
                       Action
                     </th>
-                    <th
-                      scope="col"
-                      class="text-sm font-medium text-[#174A84] px-6 py-4 text-left"
-                    ></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -75,36 +68,32 @@ export default function StockTable() {
                     class="bg-white border-gray-300 border-b cursor-pointer transition duration-300 ease-in-out hover:bg-gray-100"
                   >
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      <img src="/stock.svg" />
+                      <img src="/boy.svg" />
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                       Adeoni Muili Yewande
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      Herbal Tea
+                      yewandemuili@gmail.com
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      12
+                      09077081249
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                       3
                     </td>
 
                     <td class="text-sm text-gray-900 font-bold  px-6 py-4 whitespace-nowrap">
-                      FEK122445
+                      Suzuki
                     </td>
-                    <td class="text-sm text-gray-900 font-bold  px-6 py-4 whitespace-nowrap">
-                      10000
-                    </td>
+
                     <td class="text-sm font-bold  px-6 py-4 whitespace-nowrap">
-                      <div className="bg-[#cecfe0] font-bold  text-black text-center py-2 px-1 rounded-lg">
-                        Edit
-                      </div>
-                    </td>
-                    <td class="text-sm font-bold  px-6 py-4 whitespace-nowrap">
-                      <div className="bg-[#FFDFE5] font-bold  text-[#F9395B] text-center py-2 px-1 rounded-lg">
-                        Delete
-                      </div>
+                      <button
+                        onClick={() => setModalOpen("modal-open")}
+                        className="bg-[#cecfe0] font-bold  text-gray-600 text-center py-2 px-1 rounded-lg"
+                      >
+                        View details
+                      </button>
                     </td>
                   </tr>
                 </tbody>

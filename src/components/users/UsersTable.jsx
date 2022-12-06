@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { COLUMNS } from "../../column";
 import TableHeaders from "../utils/TableHeaders";
+import AssignRole from "./usermodals/AssignRole";
+import DisableNotify from "./usermodals/DisableNotify";
 import UsersTab from "./UsersTab";
 export default function UsersTable() {
+  const [modalOpen, setModalOpen] = useState();
+  const [disableOpen, setDisableOpen] = useState();
   return (
     <div className="pt-7">
+      <AssignRole modalOpen={modalOpen} setModalOpen={setModalOpen} />
+      <DisableNotify modalOpen={disableOpen} setModalOpen={setDisableOpen} />
       <div class="flex flex-col">
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -90,6 +96,50 @@ export default function UsersTable() {
                     </td>
                     <td class="text-sm font-bold  px-6 py-4 whitespace-nowrap">
                       <div className="bg-[#FFEFDF] font-bold  text-[#E4750D] text-center py-2 px-1 rounded-lg">
+                        Disable
+                      </div>
+                    </td>
+                    <td class="text-sm font-bold  px-6 py-4 whitespace-nowrap">
+                      <div className="bg-[#FFDFE5] font-bold  text-[#F9395B] text-center py-2 px-1 rounded-lg">
+                        Block
+                      </div>
+                    </td>
+                  </tr>
+                  <tr
+                    //onClick={() => navigate("/userdetails")}
+                    class="bg-white border-gray-300 border-b cursor-pointer transition duration-300 ease-in-out hover:bg-gray-100"
+                  >
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      <img src="/boy.svg" />
+                    </td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      Mark
+                    </td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      Otto@gmail.com
+                    </td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      09099849934
+                    </td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      <label
+                        onClick={() => setModalOpen("modal-open")}
+                        className="bg-[#E7F2FF] text-[#0177FB] rounded-md px-2 py-1"
+                      >
+                        Assign Role
+                      </label>
+                    </td>
+
+                    <td class="text-sm text-gray-900 font-bold  px-6 py-4 whitespace-nowrap">
+                      <div className="bg-[#EBFFF3] text-[#61BB84] text-center py-2 px-1 rounded-lg">
+                        Edit
+                      </div>
+                    </td>
+                    <td class="text-sm font-bold  px-6 py-4 whitespace-nowrap">
+                      <div
+                        onClick={() => setDisableOpen("modal-open")}
+                        className="bg-[#FFEFDF] font-bold  text-[#E4750D] text-center py-2 px-1 rounded-lg"
+                      >
                         Disable
                       </div>
                     </td>

@@ -31,12 +31,7 @@ export default function TransactionTable() {
                     >
                       Type
                     </th>
-                    <th
-                      scope="col"
-                      class="text-sm font-medium text-[#174A84] px-6 py-4 text-left"
-                    >
-                      Products
-                    </th>
+
                     <th
                       scope="col"
                       class="text-sm font-medium text-[#174A84] px-6 py-4 text-left"
@@ -48,7 +43,7 @@ export default function TransactionTable() {
                       scope="col"
                       class="text-sm font-medium text-[#174A84] px-6 py-4 text-left"
                     >
-                      Channel
+                      Time
                     </th>
                     <th
                       scope="col"
@@ -67,17 +62,15 @@ export default function TransactionTable() {
                       Adeoni Muili Yewande
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      Product Purchase
+                      Assigned Shipping
                     </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      Herbal Tea
-                    </td>
+
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                       26th Aug, 2022
                     </td>
 
                     <td class="text-sm text-gray-900 font-bold  px-6 py-4 whitespace-nowrap">
-                      Credit Card
+                      11:22:43PM
                     </td>
                     <td class="text-sm text-gray-900 font-bold  px-6 py-4 whitespace-nowrap">
                       10000
