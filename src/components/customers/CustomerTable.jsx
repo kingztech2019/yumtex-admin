@@ -1,30 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import { COLUMNS } from "../../column";
+import TableHeaders from "../utils/TableHeaders";
+import CustomerModal from "./modal/CustomerModal";
 export default function CustomerTable() {
+  const [modalOpen, setModalOpen] = useState();
   return (
     <div>
+      <CustomerModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
       <div class="flex flex-col">
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-            <div class="overflow-hidden">
+            <div class="overflow-hidden bg-white">
+              <div className="py-3 px-4">
+                <TableHeaders showFilter={true} />
+              </div>
               <table class="min-w-full">
                 <thead class="bg-white border-b   border-gray-300">
                   <tr>
                     <th
                       scope="col"
                       class="text-sm font-medium text-[#174A84] px-6 py-4 text-left"
-                    ></th>
-                    <th
-                      scope="col"
-                      class="text-sm font-medium text-[#174A84] px-6 py-4 text-left"
                     >
-                      Name
+                      First Name
                     </th>
                     <th
                       scope="col"
                       class="text-sm font-medium text-[#174A84] px-6 py-4 text-left"
                     >
-                      Email
+                      Last Name
+                    </th>
+                    <th
+                      scope="col"
+                      class="text-sm font-medium text-[#174A84] px-6 py-4 text-left"
+                    >
+                      Email Address
                     </th>
                     <th
                       scope="col"
@@ -36,66 +45,30 @@ export default function CustomerTable() {
                       scope="col"
                       class="text-sm font-medium text-[#174A84] px-6 py-4 text-left"
                     >
-                      Date Of Birth
-                    </th>
-                    <th
-                      scope="col"
-                      class="text-sm font-medium text-[#174A84] px-6 py-4 text-left"
-                    >
-                      Gender
-                    </th>
-                    <th
-                      scope="col"
-                      class="text-sm font-medium text-[#174A84] px-6 py-4 text-left"
-                    >
                       Action
                     </th>
-                    <th
-                      scope="col"
-                      class="text-sm font-medium text-[#174A84] px-6 py-4 text-left"
-                    ></th>
-                    <th
-                      scope="col"
-                      class="text-sm font-medium text-[#174A84] px-6 py-4 text-left"
-                    ></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr
-                    //onClick={() => navigate("/userdetails")}
+                    onClick={() => setModalOpen("modal-open")}
                     class="bg-white border-gray-300 border-b cursor-pointer transition duration-300 ease-in-out hover:bg-gray-100"
                   >
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      <img src="/boy.svg" />
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      Adetunji
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      Mark
+                      Yetunde
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      Otto@gmail.com
+                      adeonimuili@gmail.com
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      7/7/2021
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      7/7/2022
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      Male
-                    </td>
-                    <td class="text-sm text-gray-900 font-bold  px-6 py-4 whitespace-nowrap">
-                      <div className="bg-gray-200 text-center py-2 px-1 rounded-lg">
-                        Edit
-                      </div>
+                      09077081222
                     </td>
                     <td class="text-sm font-bold  px-6 py-4 whitespace-nowrap">
-                      <div className="bg-[#f3e3d5] font-bold  text-[#E4750D] text-center py-2 px-1 rounded-lg">
-                        Reject
-                      </div>
-                    </td>
-                    <td class="text-sm font-bold  px-6 py-4 whitespace-nowrap">
-                      <div className="bg-[#FFDFE5] font-bold  text-[#F9395B] text-center py-2 px-1 rounded-lg">
-                        Block
+                      <div className="bg-[#676879] font-bold  text-[#000] text-center py-2 px-2 rounded-lg">
+                        View Details
                       </div>
                     </td>
                   </tr>
@@ -103,37 +76,22 @@ export default function CustomerTable() {
                     //onClick={() => navigate("/userdetails")}
                     class="bg-white border-gray-300 border-b cursor-pointer transition duration-300 ease-in-out hover:bg-gray-100"
                   >
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      <img src="/boy.svg" />
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      Adetunji
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      Mark
+                      Yetunde
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      Otto@gmail.com
+                      adeonimuili@gmail.com
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      7/7/2021
+                      09077081222
                     </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      7/7/2022
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      Male
-                    </td>
-                    <td class="text-sm text-gray-900 font-bold  px-6 py-4 whitespace-nowrap">
-                      <div className="bg-gray-200 text-center py-2 px-1 rounded-lg">
-                        Edit
-                      </div>
-                    </td>
+
                     <td class="text-sm font-bold  px-6 py-4 whitespace-nowrap">
-                      <div className="bg-[#f3e3d5] font-bold  text-[#E4750D] text-center py-2 px-1 rounded-lg">
-                        Reject
-                      </div>
-                    </td>
-                    <td class="text-sm font-bold  px-6 py-4 whitespace-nowrap">
-                      <div className="bg-[#FFDFE5] font-bold  text-[#F9395B] text-center py-2 px-1 rounded-lg">
-                        Block
+                      <div className="bg-[#676879] font-bold  text-[#000] text-center py-2 px-1 rounded-lg">
+                        View Details
                       </div>
                     </td>
                   </tr>
@@ -141,37 +99,22 @@ export default function CustomerTable() {
                     //onClick={() => navigate("/userdetails")}
                     class="bg-white border-gray-300 border-b cursor-pointer transition duration-300 ease-in-out hover:bg-gray-100"
                   >
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      <img src="/boy.svg" />
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      Adetunji
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      Mark
+                      Yetunde
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      Otto@gmail.com
+                      adeonimuili@gmail.com
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      7/7/2021
+                      09077081222
                     </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      7/7/2022
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      Male
-                    </td>
-                    <td class="text-sm text-gray-900 font-bold  px-6 py-4 whitespace-nowrap">
-                      <div className="bg-gray-200 text-center py-2 px-1 rounded-lg">
-                        Edit
-                      </div>
-                    </td>
+
                     <td class="text-sm font-bold  px-6 py-4 whitespace-nowrap">
-                      <div className="bg-[#f3e3d5] font-bold  text-[#E4750D] text-center py-2 px-1 rounded-lg">
-                        Reject
-                      </div>
-                    </td>
-                    <td class="text-sm font-bold  px-6 py-4 whitespace-nowrap">
-                      <div className="bg-[#FFDFE5] font-bold  text-[#F9395B] text-center py-2 px-1 rounded-lg">
-                        Block
+                      <div className="bg-[#676879] font-bold  text-[#000] text-center py-2 px-1 rounded-lg">
+                        View Details
                       </div>
                     </td>
                   </tr>

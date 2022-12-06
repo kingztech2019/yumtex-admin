@@ -5,6 +5,7 @@ import CustomerTable from "../components/customers/CustomerTable";
 
 export default function Customers() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState();
   return (
     <div className="flex h-screen overflow-hidden">
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
