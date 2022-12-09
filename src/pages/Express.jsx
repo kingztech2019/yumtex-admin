@@ -12,6 +12,7 @@ import DeliveriesTab from "../components/deliveries/DeliveriesTab";
 import AssignedTable from "../components/express/Assigned";
 import ConfirmedTable from "../components/express/confirmed";
 import CompletedTable from "../components/express/Completed";
+import ExpressTab from "../components/express/ExpressTab";
 
 export default function Express() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -31,7 +32,7 @@ export default function Express() {
               <div className="font-black text-lg">Deliveries</div>
             </div>
             <div>
-              <DeliveriesTab active={active} setActiveTab={setActiveTab} />
+              <ExpressTab active={active} setActiveTab={setActiveTab} />
             </div>
 
             {active == 0 && (
