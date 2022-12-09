@@ -7,8 +7,8 @@ import CreateUserModal from "../components/users/usermodals/CreateUserModal";
 import CreateRoleModal from "../components/users/usermodals/CreateRoleModal";
 import UsersTab from "../components/users/UsersTab";
 import RoleTable from "../components/users/RoleTable";
-import StockTable from "../components/stock/StockTable";
-import StoreModal from "../components/stock/modal/StockModal";
+import StockTable from "../components/driver/StockTable";
+import StoreModal from "../components/driver/modal/StockModal";
 import TransactionTable from "../components/transaction/TransactionTable";
 
 export default function Transaction() {

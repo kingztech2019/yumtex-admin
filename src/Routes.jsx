@@ -10,6 +10,8 @@ import Transaction from "./pages/Transaction";
 import UsersRole from "./pages/UsersRole";
 import Revenue from "./pages/Revenue";
 import Orders from "./pages/Orders";
+import Deliveries from "./pages/Deliveries";
+import Express from "./pages/Express";
 
 const RoutesFile = () => {
   return (
@@ -23,7 +25,8 @@ const RoutesFile = () => {
       <Route exact path="/stock" element={<Stock />} />
       <Route exact path="/transaction" element={<Transaction />} />
       <Route exact path="/revenue" element={<Revenue />} />
-      <Route exact path="/orders" element={<Orders />} />
+      <Route exact path="/deliveries" element={<Deliveries />} />
+      <Route exact path="/express" element={<Express />} />
     </Routes>
   );
 };

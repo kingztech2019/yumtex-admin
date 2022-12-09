@@ -7,10 +7,12 @@ import CreateUserModal from "../components/users/usermodals/CreateUserModal";
 import CreateRoleModal from "../components/users/usermodals/CreateRoleModal";
 import UsersTab from "../components/users/UsersTab";
 import RoleTable from "../components/users/RoleTable";
-import StockTable from "../components/driver/StockTable";
-import StoreModal from "../components/driver/modal/StockModal";
+import DeliveriesTab from "../components/deliveries/DeliveriesTab";
+import PendingTable from "../components/deliveries/Pending";
+import ConfirmedTable from "../components/deliveries/Confirmed";
+import CompletedTable from "../components/deliveries/Completed";
 
-export default function Stock() {
+export default function Deliveries() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState();
   const [openRoleModal, setOpenRoleModal] = useState();
@@ -21,16 +23,31 @@ export default function Stock() {
       <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         <main>
-          <StoreModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
+          <CreateUserModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
 
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
             <div className="flex justify-between">
-              <div className="font-black text-lg">Drivers</div>
+              <div className="font-black text-lg">Deliveries</div>
+            </div>
+            <div>
+              <DeliveriesTab active={active} setActiveTab={setActiveTab} />
             </div>
 
-            <div>
-              <StockTable />
-            </div>
+            {active == 0 && (
+              <div>
+                <PendingTable />
+              </div>
+            )}
+            {active == 1 && (
+              <div>
+                <ConfirmedTable />
+              </div>
+            )}
+            {active == 2 && (
+              <div>
+                <CompletedTable />
+              </div>
+            )}
           </div>
         </main>
       </div>

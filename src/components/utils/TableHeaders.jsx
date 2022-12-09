@@ -32,7 +32,7 @@ export default function TableHeaders(props) {
           />
         </div>
       </div>
-      {props.showFilter && (
+      {props.showFilter ? (
         <div>
           <div className="flex items-center">
             <div className="border flex items-center py-2 border-gray-300 px-3 rounded-2xl">
@@ -63,6 +63,15 @@ export default function TableHeaders(props) {
                   </li>
                 </ul>
               </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <div className="inline-flex items-center">
+            <div>Filter</div>
+            <div className="pl-3">
+              <img src="/Shape.svg" className="h-3 w-3" />
             </div>
           </div>
         </div>
