@@ -12,11 +12,11 @@ export default function RecentJoin({ dashboardData }) {
               <div>
                 <div className="inline-flex">
                   <div>
-                    <img src={data?.profile_image || "/boy.svg"} />
+                    <img src={data?.profile_image || "/boy.png"} className="h-8 w-8" />
                   </div>
                   <div className="font-medium pl-2">
                     {data?.firstname} {data?.lastname}
-                    <div className="font-normal pt-1">20.02.22</div>
+                    {/* <div className="font-normal pt-1">20.02.22</div> */}
                   </div>
                 </div>
               </div>

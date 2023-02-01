@@ -44,7 +44,7 @@ export default function Dashboard() {
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
             <div> Dashboard</div>
             <div className="flex items-start gap-6">
-              <div className="w-2/3">
+              <div className="w-full">
                 <div>
                   <Stats dashboardData={dashboardData} />
                 </div>
@@ -55,14 +55,14 @@ export default function Dashboard() {
                   <Transaction dashboardData={dashboardData} />
                 </div>
               </div>
-              <div className="w-1/3">
+              {/* <div className="w-1/3">
                 <div>
                   <MoneyFlow />
                 </div>
                 <div className="pt-6">
                   <TopProducts />
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </main>
