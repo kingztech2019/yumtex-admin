@@ -74,7 +74,7 @@ function UserMenu() {
           onBlur={() => setDropdownOpen(false)}
         >
           <div className="pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200">
-            <div className="font-medium text-slate-800">Paydot.</div>
+            <div className="font-medium text-slate-800">Yumteko</div>
             <div className="text-xs text-slate-500 italic">Administrator</div>
           </div>
           <ul>

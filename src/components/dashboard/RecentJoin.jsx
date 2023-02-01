@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function RecentJoin({ dashboardData }) {
-  console.log(dashboardData, "This is data");
+  
   return (
     <div>
       <div className="bg-white rounded-lg h-[160px]">
