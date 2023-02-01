@@ -1,6 +1,7 @@
 import React from "react";
 
-export default function Stats() {
+export default function Stats({ dashboardData }) {
+  console.log(dashboardData);
   return (
     <div>
       <div className="bg-white rounded-lg h-[160px]">
@@ -12,7 +13,7 @@ export default function Stats() {
                 <img src="/customer-icon.svg" />
               </div>
               <div className="font-medium pl-2">
-                220k
+                {dashboardData?.Stats?.totalCustomers}
                 <div className="font-normal pt-1">Customers</div>
               </div>
             </div>
@@ -23,7 +24,7 @@ export default function Stats() {
                 <img src="/revenue-icon.svg" />
               </div>
               <div className="font-medium pl-2">
-                220k
+                {dashboardData?.Stats?.totalRevenue}
                 <div className="font-normal pt-1">Revenue</div>
               </div>
             </div>
@@ -34,7 +35,7 @@ export default function Stats() {
                 <img src="/transaction-icon.svg" />
               </div>
               <div className="font-medium pl-2">
-                220k
+                {dashboardData?.Stats?.transactions}
                 <div className="font-normal">Transaction</div>
               </div>
             </div>
@@ -45,7 +46,7 @@ export default function Stats() {
                 <img src="/driver.svg" />
               </div>
               <div className="font-medium pl-2">
-                220k
+                {dashboardData?.Stats?.drivers}
                 <div className="font-normal">Drivers</div>
               </div>
             </div>

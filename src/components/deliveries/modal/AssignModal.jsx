@@ -1,13 +1,98 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import DragDropFile from "../../draganddrop/DragAndDrop";
+import Pagination from "../../utils/Pagination";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
-export default function AssignModal({ modalOpen, setModalOpen }) {
+
+export default function AssignModal({ modalOpen, setModalOpen,driverData,driverItem }) {
   const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState();
+  const [chooseData, setChooseData] = useState(5);
+  const [pageNumber, setpageNumber] = useState(1);
+  const nextPage = () => {
+    if (driverData?.links[2]["active"] == true) {
+      setpageNumber(pageNumber + 1);
+    }
+  };
+  const prevPage = () => {
+    if (pageNumber > 1) {
+      setpageNumber(pageNumber - 1);
+    }
+  };
+  const assignDriver = (users) => {
+    const token = localStorage.getItem("logisticsAdminToken");
+   console.log(users);
+    setLoading("loading");
+    var config = {
+      method: "post",
+      url: ` ${process.env.REACT_APP_API}/v1/assign-driver/${users?.id}/${driverItem?.es_id}`,
+      headers: { Authorization: `Bearer ${token}` },
+      data: {},
+    };
+
+    
+
+    axios(config)
+      .then(function (response) {
+        setLoading();
+        toast.success(response?.data?.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        setModalOpen("")
+    console.log(response?.data);
+        //getUserData();
+      })
+      .catch(function (error) {
+        if (error?.response?.data?.error) {
+          setLoading();
+          toast.error(error?.response?.data?.error[0], {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          return;
+        } else {
+          setLoading();
+          toast.error(error?.response?.data?.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
+        console.log(error);
+      });
+  };
   return (
     <div>
       {/* Put this part before </body> tag */}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <input type="checkbox" id="store-modal" className="modal-toggle" />
       <div className={`modal ${modalOpen}`}>
         <div className="modal-box bg-[#FAFAFA]    max-w-[820px]">
@@ -70,7 +155,7 @@ export default function AssignModal({ modalOpen, setModalOpen }) {
                         scope="col"
                         class="text-sm font-medium text-[#174A84] px-6 py-4 text-left"
                       >
-                        Location
+                        Email
                       </th>
                       <th
                         scope="col"
@@ -81,28 +166,44 @@ export default function AssignModal({ modalOpen, setModalOpen }) {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr
+                    {driverData?.data?.map((data,i)=>(
+                      <tr
+                      key={i}
                       //onClick={() => navigate("/userdetails")}
                       class="bg-white border-gray-300 border-b cursor-pointer transition duration-300 ease-in-out hover:bg-gray-100"
                     >
                       <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        <img src="/boy.svg" />
+                        <img src={data?.profile_image||"/boy.png"} className="h-8 w-8" />
                       </td>
                       <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Abula Rice
+                      {data?.firstname} {data?.lastname}
                       </td>
                       <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        <span className="font-black">Adeoni Muili Yewande</span>
-                        <div>080617881992</div>
+                        <span className="font-black">{data?.email}</span>
+                        <div>{data?.phone_no}</div>
                       </td>
                       <td class="text-sm font-bold  px-6 py-4 whitespace-nowrap">
-                        <div className="bg-[#FFEFDF] font-bold  text-[#E4750D] text-center py-2 px-1 rounded-lg">
+                        <div onClick={()=>assignDriver(data)} className="bg-[#FFEFDF] font-bold  text-[#E4750D] text-center py-2 px-1 rounded-lg">
                           Assign
                         </div>
                       </td>
                     </tr>
+                    ))}
                   </tbody>
                 </table>
+                <div className="flex justify-end pt-2 pb-24 px-7">
+                <div>
+                  <Pagination
+                    chooseData={chooseData}
+                    setChooseData={setChooseData}
+                    nextPage={nextPage}
+                    prevPage={prevPage}
+                    totalPage={driverData?.total}
+                    show={false}
+                    data={driverData}
+                  />
+                </div>
+              </div>
               </div>
             </div>
           </div>

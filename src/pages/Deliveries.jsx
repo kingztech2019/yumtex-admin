@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../components/sidebar/Sidebar";
 import Header from "../components/header/Header";
 
@@ -11,12 +11,14 @@ import DeliveriesTab from "../components/deliveries/DeliveriesTab";
 import PendingTable from "../components/deliveries/Pending";
 import ConfirmedTable from "../components/deliveries/Confirmed";
 import CompletedTable from "../components/deliveries/Completed";
+import axios from "axios";
 
 export default function Deliveries() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState();
   const [openRoleModal, setOpenRoleModal] = useState();
   const [active, setActiveTab] = useState(0);
+
   return (
     <div className="flex h-screen overflow-hidden">
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />

@@ -1,10 +1,30 @@
-import React from "react";
-
+import React, { useState } from "react";
+import html2canvas from "html2canvas";
+import { jsPDF } from "jspdf";
 export default function TableHeaders(props) {
+  const [chooseData, setChooseData] = useState();
+  const [showDropDown, setShowDropDown] = useState(true);
+  const months = Array.from({ length: 12 }, (e, i) => {
+    return new Date(null, i + 1, null).toLocaleDateString("en", {
+      month: "long",
+    });
+  });
+  const handleChange = (e) => {
+    props.setSearchValue(e.target.value);
+  };
+  const downloadFileDocument = () => {
+    const input = document.getElementById(props.rootElementId);
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "pt", "a3");
+      pdf.addImage(imgData, "JPEG", 0, 0);
+      pdf.save(`${props.downloadFileName}`);
+    });
+  };
   return (
     <div className="flex justify-between">
       <div className="">
-        <div class="relative text-gray-600 focus-within:text-gray-400">
+        <div class="relative text-gray-600 focus-within:text-gray-400 flex items-center">
           <span class="absolute inset-y-0 left-0 flex items-center pl-2">
             <button
               type="submit"
@@ -29,49 +49,77 @@ export default function TableHeaders(props) {
             class="py-3 text-sm px-44 bg-gray-200 rounded-md pl-10 outline-none focus:text-gray-900"
             placeholder="Search..."
             autocomplete="off"
+            onChange={handleChange}
           />
+          <div className="pl-4">
+            <button
+              onClick={props.getSearch}
+              className="bg-deepBlue text-white px-3 py-2 rounded-md"
+            >
+              Search
+            </button>
+          </div>
+          <div className="pl-4">
+            <button
+              onClick={() => {
+                props.setFilterTriggered(false);
+                props.reset();
+              }}
+              className="bg-deepBlue text-white px-3 py-2 rounded-md"
+            >
+              Reset
+            </button>
+          </div>
         </div>
       </div>
-      {props.showFilter ? (
+      {props.showFilter && (
         <div>
-          <div className="flex items-center">
-            <div className="border flex items-center py-2 border-gray-300 px-3 rounded-2xl">
+          <div className="flex  items-center">
+            <div
+              onClick={downloadFileDocument}
+              className="border flex items-center cursor-pointer py-2 border-gray-300 px-3 rounded-2xl"
+            >
               Download
               <div className="pl-1">
                 <img src="/outline.svg" />
               </div>
             </div>
 
-            <div className="pl-2">Filter</div>
-            <div className="pl-2">
+            <div className="pl-7">Filter</div>
+            <div className="pl-7">
               <div className="dropdown dropdown-left dropdown-bottom">
                 <label
                   tabIndex={0}
+                  onClick={() => setShowDropDown(true)}
                   className="border py-2 border-gray-300 px-3 rounded-2xl"
                 >
-                  Month
+                  <div className="inline-flex items-center">
+                    {chooseData || "Month"}
+                    <span className="pl-1">
+                      <img src="/down.svg" />
+                    </span>
+                  </div>
                 </label>
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-60"
-                >
-                  <li>
-                    <a>Item 1</a>
-                  </li>
-                  <li>
-                    <a>Item 2</a>
-                  </li>
-                </ul>
+                {showDropDown && (
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content menu z-50 p-2 shadow bg-base-100 rounded-box w-60"
+                  >
+                    {months?.map((data, i) => (
+                      <li
+                        onClick={() => {
+                          props.setMonthIndex(i);
+                          setChooseData(data);
+                          setShowDropDown(false);
+                          props.setFilterTriggered(true);
+                        }}
+                      >
+                        <a>{data}</a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div>
-          <div className="inline-flex items-center">
-            <div>Filter</div>
-            <div className="pl-3">
-              <img src="/Shape.svg" className="h-3 w-3" />
             </div>
           </div>
         </div>

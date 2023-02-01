@@ -1,20 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../components/sidebar/Sidebar";
 import Header from "../components/header/Header";
 
-import UsersTable from "../components/users/UsersTable";
-import CreateUserModal from "../components/users/usermodals/CreateUserModal";
-import CreateRoleModal from "../components/users/usermodals/CreateRoleModal";
-import UsersTab from "../components/users/UsersTab";
-import RoleTable from "../components/users/RoleTable";
-import StockTable from "../components/driver/StockTable";
+import DriverTable from "../components/driver/DriverTable";
 import StoreModal from "../components/driver/modal/StockModal";
+import axios from "axios";
 
-export default function Stock() {
+export default function Drivers() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState();
-  const [openRoleModal, setOpenRoleModal] = useState();
-  const [active, setActiveTab] = useState(0);
+
   return (
     <div className="flex h-screen overflow-hidden">
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
@@ -29,7 +24,7 @@ export default function Stock() {
             </div>
 
             <div>
-              <StockTable />
+              <DriverTable />
             </div>
           </div>
         </main>

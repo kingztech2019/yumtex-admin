@@ -5,13 +5,14 @@ import Dashboard from "./pages/Dashboard";
 import ForgetPassword from "./pages/ForgetPassword";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Stock from "./pages/Stock";
+
 import Transaction from "./pages/Transaction";
 import UsersRole from "./pages/UsersRole";
 import Revenue from "./pages/Revenue";
 import Orders from "./pages/Orders";
 import Deliveries from "./pages/Deliveries";
 import Express from "./pages/Express";
+import Drivers from "./pages/Driver";
 
 const RoutesFile = () => {
   return (
@@ -22,7 +23,7 @@ const RoutesFile = () => {
       <Route exact path="/dashboard" element={<Dashboard />} />
       <Route exact path="/customers" element={<Customers />} />
       <Route exact path="/users-roles" element={<UsersRole />} />
-      <Route exact path="/stock" element={<Stock />} />
+      <Route exact path="/driver" element={<Drivers />} />
       <Route exact path="/transaction" element={<Transaction />} />
       <Route exact path="/revenue" element={<Revenue />} />
       <Route exact path="/deliveries" element={<Deliveries />} />

@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import DragDropFile from "../../draganddrop/DragAndDrop";
 
-export default function DriverModal({ modalOpen, setModalOpen }) {
+export default function DriverModal({
+  modalOpen,
+  setModalOpen,
+  singleDriverData,
+}) {
   const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState();
   return (
@@ -28,30 +32,43 @@ export default function DriverModal({ modalOpen, setModalOpen }) {
                     <div className="text-gray-400 text-sm">
                       MEANS OF IDENTIFICATION
                     </div>
-                    <div className="font-black">NIN</div>
+                    <div className="font-black">Driver License</div>
                   </div>
                   <div className="pl-5">
                     <div className="text-gray-400 text-sm">
                       DRIVER’S LICENSE
                     </div>
-                    <div className="font-black">NTA6678899A2</div>
+                    <div className="font-black">
+                      {singleDriverData?.driver_kyc?.dk_motocycle_details[0]
+                        ?.drivers_license || "-"}
+                    </div>
                   </div>
                   <div className="pl-5">
                     <div className="text-gray-400 text-sm">ENGINE NUMBER</div>
-                    <div className="font-black">3455688990</div>
+                    <div className="font-black">
+                      {singleDriverData?.driver_kyc?.dk_motocycle_details[0]
+                        ?.engine_number || "-"}
+                    </div>
                   </div>
                 </div>
                 <div className="flex justify-between  py-4">
                   <div>
                     <div className="text-gray-400 text-sm">PLATE NUMBER</div>
-                    <div className="font-black ">128901212000</div>
+                    <div className="font-black ">
+                      {" "}
+                      {singleDriverData?.driver_kyc?.dk_motocycle_details[0]
+                        ?.plate_number || "-"}
+                    </div>
                   </div>
                   <div className="pl-5">
                     <div className="text-gray-400 text-sm">CHASIS NUMBER</div>
-                    <div className="font-black">35629008812</div>
+                    <div className="font-black">
+                      {singleDriverData?.driver_kyc?.dk_motocycle_details[0]
+                        ?.chasis_number || "-"}
+                    </div>
                   </div>
                   <div className="pl-5">
-                    <div className="text-gray-400 text-sm">RATINGS</div>
+                    {/* <div className="text-gray-400 text-sm">RATINGS</div>
                     <div className="rating">
                       <input
                         type="radio"
@@ -79,7 +96,7 @@ export default function DriverModal({ modalOpen, setModalOpen }) {
                         name="rating-4"
                         className="mask mask-star-2 bg-green-500"
                       />
-                    </div>
+                    </div> */}
                   </div>
                 </div>
                 <div>
@@ -111,11 +128,19 @@ export default function DriverModal({ modalOpen, setModalOpen }) {
                       <div className="text-gray-400 text-sm">
                         ACCOUNT NUMBER
                       </div>
-                      <div className="font-black">02223312222</div>
+                      <div className="font-black">
+                        {" "}
+                        {singleDriverData?.driver_kyc?.dk_bank_details[0]
+                          ?.account_number || "-"}
+                      </div>
                     </div>
                     <div className="pl-5">
                       <div className="text-gray-400 text-sm">ACCOUNT NAME</div>
-                      <div className="font-black">SOFTAMOS TECH</div>
+                      <div className="font-black">
+                        {" "}
+                        {singleDriverData?.driver_kyc?.dk_bank_details[0]
+                          ?.account_details?.account_name || "-"}
+                      </div>
                     </div>
                   </div>
                 </div>

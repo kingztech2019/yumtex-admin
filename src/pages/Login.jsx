@@ -15,66 +15,66 @@ import "react-toastify/dist/ReactToastify.css";
 import NavBar from "../components/header/NavBar";
 const LogIn = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState();
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
-  // const onSubmit = (data) => {
-  //   setLoading(true);
-  //   var config = {
-  //     method: "post",
-  //     url: ` ${import.meta.env.VITE_APP_API}auth/login`,
-  //     headers: {},
-  //     data: { ...data },
-  //   };
+  const onSubmit = (data) => {
+    setLoading("loading");
+    var config = {
+      method: "post",
+      url: ` ${process.env.REACT_APP_API}/auth/login`,
+      // headers: {},
+      data: { ...data },
+    };
 
-  //   axios(config)
-  //     .then(function (response) {
-  //       setLoading(false);
-  //       toast.success(response?.data?.message, {
-  //         position: "top-right",
-  //         autoClose: 5000,
-  //         hideProgressBar: false,
-  //         closeOnClick: true,
-  //         pauseOnHover: true,
-  //         draggable: true,
-  //         progress: undefined,
-  //       });
-  //       localStorage.setItem(
-  //         "giftAdminToken",
-  //         response?.data?.data?.access_token
-  //       );
-  //       console.log(response?.data?.data?.access_token);
-  //       navigate("/dashboard");
-  //       // console.log(JSON.stringify(response.data));
-  //     })
-  //     .catch(function (error) {
-  //       if (error?.response?.data?.error) {
-  //         setLoading(false);
-  //         toast.error(error?.response?.data?.error[0], {
-  //           position: "top-right",
-  //           autoClose: 5000,
-  //           hideProgressBar: false,
-  //           closeOnClick: true,
-  //           pauseOnHover: true,
-  //           draggable: true,
-  //           progress: undefined,
-  //         });
-  //         return;
-  //       } else {
-  //         setLoading(false);
-  //         toast.error(error?.response?.data?.message, {
-  //           position: "top-right",
-  //           autoClose: 5000,
-  //           hideProgressBar: false,
-  //           closeOnClick: true,
-  //           pauseOnHover: true,
-  //           draggable: true,
-  //           progress: undefined,
-  //         });
-  //       }
-  //       console.log(error);
-  //     });
-  // };
+    axios(config)
+      .then(function (response) {
+        setLoading();
+        toast.success(response?.data?.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        localStorage.setItem(
+          "logisticsAdminToken",
+          response?.data?.data?.access_token
+        );
+        console.log(response?.data?.data?.access_token);
+        navigate("/dashboard");
+        // console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        if (error?.response?.data?.error) {
+          setLoading();
+          toast.error(error?.response?.data?.error[0], {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          return;
+        } else {
+          setLoading();
+          toast.error(error?.response?.data?.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
+        console.log(error);
+      });
+  };
   return (
     <>
       <NavBar />
@@ -100,7 +100,7 @@ const LogIn = () => {
                     Start managing your account
                   </div>
                 </div>
-                <form>
+                <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="py-2">
                     <label className="text-black text-sm font-black px-2">
                       Email Address
@@ -155,11 +155,12 @@ const LogIn = () => {
                         Forget Password
                       </div>
                     </Link>
-                    <Link to="/dashboard">
-                      <button className="bg-gradient-to-l from-[#F39531] to-[#DC5921] text-center  w-full text-base py-3 text-white rounded-3xl border-deepBlue  font-medium">
-                        {loading ? "Loading" : "Login"}
-                      </button>
-                    </Link>
+
+                    <button
+                      className={`btn ${loading} bg-gradient-to-l from-[#F39531] to-[#DC5921] text-center  w-full text-base py-3 text-white rounded-3xl border-deepBlue  font-medium`}
+                    >
+                      {loading ? "Loading" : "Login"}
+                    </button>
                   </div>
                   <div className="text-center">
                     Don't have an account{" "}
