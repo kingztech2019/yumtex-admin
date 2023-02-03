@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { COLUMNS } from "../../column";
 import TableHeaders from "../utils/TableHeaders";
-import AssignRole from "./usermodals/AssignRole";
-import DisableNotify from "./usermodals/DisableNotify";
-import UsersTab from "./UsersTab";
+ 
+ 
 import axios from "axios";
 import Pagination from "../utils/Pagination";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-export default function UsersTable() {
+export default function CategoryTable() {
   const [modalOpen, setModalOpen] = useState();
   const [disableOpen, setDisableOpen] = useState();
   const [userData, setUserData] = useState();
@@ -20,7 +19,7 @@ export default function UsersTable() {
 
     var config = {
       method: "get",
-      url: ` ${process.env.REACT_APP_API}/v1/list-all-admin?page=${pageNumber}`,
+      url: ` ${process.env.REACT_APP_API}/v1/get-categories?page=${pageNumber}`,
       headers: { Authorization: `Bearer ${token}` },
     };
 
@@ -47,18 +46,15 @@ export default function UsersTable() {
     getUserData();
   }, [pageNumber]);
 
-  const Disabled = (users, status) => {
+  const Disabled = (data) => {
     const token = localStorage.getItem("logisticsAdminToken");
-    const data = {
-      customer: users?.id,
-      status: status,
-    };
+     
     setLoading("loading");
     var config = {
-      method: "patch",
-      url: ` ${process.env.REACT_APP_API}/v1/edit-member`,
+      method: "post",
+      url: ` ${process.env.REACT_APP_API}/v1/disable-category/${data?.category_id}`,
       headers: { Authorization: `Bearer ${token}` },
-      data: { ...data },
+      data: {} ,
     };
 
     axios(config)
@@ -73,8 +69,7 @@ export default function UsersTable() {
           draggable: true,
           progress: undefined,
         });
-
-        console.log(response?.data);
+ getUserData()
       })
       .catch(function (error) {
         if (error?.response?.data?.error) {
@@ -117,8 +112,7 @@ export default function UsersTable() {
         draggable
         pauseOnHover
       />
-      <AssignRole modalOpen={modalOpen} setModalOpen={setModalOpen} />
-      <DisableNotify modalOpen={disableOpen} setModalOpen={setDisableOpen} />
+       
       <div class="flex flex-col">
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -141,13 +135,13 @@ export default function UsersTable() {
                       scope="col"
                       class="text-sm font-medium text-[#174A84] px-6 py-4 text-left"
                     >
-                      Email
+                      Delivery Per Kg
                     </th>
                     <th
                       scope="col"
                       class="text-sm font-medium text-[#174A84] px-6 py-4 text-left"
                     >
-                      Phone Number
+                      Commission
                     </th>
                     
                     <th
@@ -156,12 +150,7 @@ export default function UsersTable() {
                     >
                       Status
                     </th>
-                    <th
-                      scope="col"
-                      class="text-sm font-medium text-[#174A84] px-6 py-4 text-left"
-                    >
-                      Roles
-                    </th>
+                     
 
                     <th
                       scope="col"
@@ -169,10 +158,7 @@ export default function UsersTable() {
                     >
                       Action
                     </th>
-                    <th
-                      scope="col"
-                      class="text-sm font-medium text-[#174A84] px-6 py-4 text-left"
-                    ></th>
+                    
                     <th
                       scope="col"
                       class="text-sm font-medium text-[#174A84] px-6 py-4 text-left"
@@ -180,54 +166,48 @@ export default function UsersTable() {
                   </tr>
                 </thead>
                 <tbody>
-                  {userData?.map((data, i) => (
+                  {userData?.data?.map((data, i) => (
                     <tr
                       //onClick={() => navigate("/userdetails")}
                       class="bg-white border-gray-300 border-b cursor-pointer transition duration-300 ease-in-out hover:bg-gray-100"
                     >
                       
                       <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {data?.firstname} {data?.lastname}
+                        {data?.category_name}  
                       </td>
                       <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {data?.email}
+                        {data?.category_delivery_per_kg}
                       </td>
                       <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {data?.phone_no}
+                        {data?.category_commission
+}
                       </td>
                       
                       <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                         <div
                           className={`${
-                            data?.status == "disabled"
+                            data?.category_status == "inactive"
                               ? "bg-[#FFDFE5] font-bold  text-[#F9395B]"
                               : "bg-[#EBFFF3] text-[#61BB84]"
                           }  text-center py-2 px-1 rounded-lg`}
                         >
-                          {data?.status}
+                          {data?.category_status}
                         </div>
                       </td>
-                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Super Admin{" "}
-                        <span className="btn btn-sm text-[10px]">Change</span>
-                      </td>
+                      
 
-                      <td class="text-sm text-gray-900 font-bold  px-6 py-4 whitespace-nowrap">
-                        <div className="bg-[#EBFFF3] text-[#61BB84] text-center py-2 px-1 rounded-lg">
-                          Edit
-                        </div>
-                      </td>
+                      
                       <td class="text-sm font-bold  px-6 py-4 whitespace-nowrap">
-                        {data?.status == "enabled" ? (
+                        {data?.category_status == "active" ? (
                           <div
-                            onClick={() => Disabled(data, "disabled")}
+                            onClick={() => Disabled(data)}
                             className="bg-[#FFEFDF] font-bold  text-[#E4750D] text-center py-2 px-1 rounded-lg"
                           >
                             Disable
                           </div>
                         ) : (
                           <div
-                            onClick={() => Disabled(data, "enabled")}
+                            onClick={() => Disabled(data)}
                             className="bg-[#FFEFDF] font-bold  text-[#E4750D] text-center py-2 px-1 rounded-lg"
                           >
                             Enable

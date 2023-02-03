@@ -150,11 +150,11 @@ const LogIn = () => {
                     </div>
                   </div>
                   <div className="pt-4">
-                    <Link to="/forget-password">
+                    {/* <Link to="/forget-password">
                       <div className="text-right font-black pt-4 text-deepBlue">
                         Forget Password
                       </div>
-                    </Link>
+                    </Link> */}
 
                     <button
                       className={`btn ${loading} bg-gradient-to-l from-[#F39531] to-[#DC5921] text-center  w-full text-base py-3 text-white rounded-3xl border-deepBlue  font-medium`}
@@ -162,12 +162,12 @@ const LogIn = () => {
                       {loading ? "Loading" : "Login"}
                     </button>
                   </div>
-                  <div className="text-center">
+                  {/* <div className="text-center">
                     Don't have an account{" "}
                     <Link to="/signup">
                       <span className="text-deepBlue font-black">Sign Up</span>
                     </Link>
-                  </div>
+                  </div> */}
                 </form>
               </div>
             </div>

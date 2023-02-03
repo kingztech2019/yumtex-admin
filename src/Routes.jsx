@@ -13,6 +13,7 @@ import Orders from "./pages/Orders";
 import Deliveries from "./pages/Deliveries";
 import Express from "./pages/Express";
 import Drivers from "./pages/Driver";
+import Category from "./pages/Category";
 
 const RoutesFile = () => {
   return (
@@ -28,6 +29,7 @@ const RoutesFile = () => {
       <Route exact path="/revenue" element={<Revenue />} />
       <Route exact path="/deliveries" element={<Deliveries />} />
       <Route exact path="/express" element={<Express />} />
+      <Route exact path="/category" element={<Category />} />
     </Routes>
   );
 };

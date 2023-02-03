@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function CreateUserModal({ modalOpen, setModalOpen }) {
+export default function CreateCategory({ modalOpen, setModalOpen }) {
   const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState();
 const [roleData,setRoleData] =useState()
@@ -19,7 +19,7 @@ const [roleData,setRoleData] =useState()
     setLoading("loading");
     var config = {
       method: "post",
-      url: ` ${process.env.REACT_APP_API}/v1/create-admin-and-assign-role`,
+      url: ` ${process.env.REACT_APP_API}/v1/create-category`,
       headers: { Authorization: `Bearer ${token}` },
       data: { ...payload },
     };
@@ -36,8 +36,8 @@ const [roleData,setRoleData] =useState()
           draggable: true,
           progress: undefined,
         });
-
-        console.log(response?.data);
+window.location.reload()
+        setModalOpen("")
       })
       .catch(function (error) {
         if (error?.response?.data?.error) {
@@ -68,55 +68,7 @@ const [roleData,setRoleData] =useState()
       });
   };
 
-  const getRoles = () => {
-    const token = localStorage.getItem("logisticsAdminToken");
-    
-    setLoading("loading");
-    var config = {
-      method: "get",
-      url: ` ${process.env.REACT_APP_API}/v1/list-all-roles`,
-      headers: { Authorization: `Bearer ${token}` },
-       
-    };
-
-    axios(config)
-      .then(function (response) {
-        setLoading();
-       
-
-        console.log(response?.data);
-      })
-      .catch(function (error) {
-        if (error?.response?.data?.error) {
-          setLoading();
-          toast.error(error?.response?.data?.error[0], {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-          return;
-        } else {
-          setLoading();
-          toast.error(error?.response?.data?.message, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-        }
-        console.log(error);
-      });
-  };
-  useEffect(() => {
-    getRoles()
- }, [])
+   
  
   return (
     <div>
@@ -136,7 +88,7 @@ const [roleData,setRoleData] =useState()
       <div className={`modal ${modalOpen}`}>
         <div className="modal-box bg-[#FAFAFA]    max-w-[820px]">
           <div className="flex justify-between rounded-md items-center bg-white py-3 px-2 border-b">
-            <div className="text-lg font-bold">Create users</div>
+            <div className="text-lg font-bold">Create Category</div>
             <div
               onClick={() => setModalOpen("")}
               className="bg-[#C2C2C2] rounded-full px-2 py-1 cursor-pointer text-white"
@@ -149,103 +101,45 @@ const [roleData,setRoleData] =useState()
             <div className="flex justify-between pt-10 py-3">
               <div className="w-1/2">
                 <label className="text-black text-sm font-black px-2">
-                  First Name
+                  Category Name
                 </label>
                 <input
                   type="text"
-                  placeholder="Enter your First Name"
+                  placeholder="Enter your Category Name"
                   className="border border-[#E8E9EA] outline-none px-3 py-4 text-sm w-full rounded bg-white focus:bg-white"
-                  {...register("firstname")}
+                  {...register("category_name")}
                   required
                 />
               </div>
               <div className="w-1/2 pl-2">
                 <label className="text-black text-sm font-black px-2">
-                  Last Name
+                  Delivery Per KG
                 </label>
                 <input
                   type="text"
                   p
-                  placeholder="Enter your Last Name"
+                  placeholder="Enter your delivery per KG"
                   className="border border-[#E8E9EA] outline-none px-3 py-4 text-sm w-full rounded bg-white focus:bg-white"
-                  {...register("lastname")}
+                  {...register("category_delivery_per_kg")}
                   required
                 />
               </div>
             </div>
             <div className="py-3">
               <label className="text-black text-sm font-black px-2">
-                Email Address
+                Category Commission
               </label>
               <input
                 type="text"
-                placeholder="Enter your Email Address"
+                placeholder="Enter your commisson"
                 className="border border-[#E8E9EA] outline-none px-3 py-4 text-sm w-full rounded bg-white focus:bg-white"
-                {...register("email")}
+                {...register("category_commission")}
                 required
               />
             </div>
-            <div className="py-3">
-              <label className="text-black text-sm font-black px-2">
-                Phone Number
-              </label>
-              <input
-                type="text"
-                placeholder="Enter your Phone Number"
-                className="border border-[#E8E9EA] outline-none px-3 py-4 text-sm w-full rounded bg-white focus:bg-white"
-                {...register("phone_no")}
-                required
-              />
-            </div>
-            <div className="flex items-center gap-4 justify-evenly">
-              
-              <div className="py-3 w-1/2">
-              <label className="text-black text-sm font-black px-2">
-                Password
-              </label>
-              <input
-                type="text"
-                placeholder="Enter your Phone Number"
-                className="border border-[#E8E9EA] outline-none px-3 py-4 text-sm w-full rounded bg-white focus:bg-white"
-                {...register("password")}
-                required
-              />
-            </div>
-            <div className="py-3 w-1/2">
-              <label className="text-black text-sm font-black px-2">
-                Confirm Password
-              </label>
-              <input
-                type="text"
-                placeholder="Enter your Phone Number"
-                className="border border-[#E8E9EA] outline-none px-3 py-4 text-sm w-full rounded bg-white focus:bg-white"
-                {...register("password_confirmation")}
-                required
-              />
-            </div>
-              
-
-            </div>
-            <div class="relative py-4">
-              <label className="text-black text-sm font-black px-2">Role</label>
-              <select
-                class="block appearance-none w-full bg-white border border-[#E8E9EA]  py-4 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white "
-                id="grid-state"
-              >
-                <option>New Mexico</option>
-                <option>Missouri</option>
-                <option>Texas</option>
-              </select>
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg
-                  class="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-              </div>
-            </div>
+            
+             
+           
 
             {/* <div className="flex relative justify-between items-center">
               <input
@@ -276,18 +170,18 @@ const [roleData,setRoleData] =useState()
               <div>
                 <label
                   onClick={() => setModalOpen("")}
-                  className="border border-[#3b4046] px-5 text-black rounded-lg py-4"
+                  className="border border-[#3b4046] btn px-5 text-white rounded-lg py-4"
                 >
                   Cancel
                 </label>
               </div>
               <div className="pl-2">
-                <label
+                <button
                   //htmlFor="my-modal-3"
-                  className="bg-[#2F93F6] px-4 text-[#fff] rounded-lg py-4 cursor-pointer"
+                  className={`${loading} btn border-0 bg-[#2F93F6] px-4 text-[#fff] rounded-lg py-4 cursor-pointer`}
                 >
-                  Create User
-                </label>
+                  Create Category
+                </button>
               </div>
             </div>
           </form>
