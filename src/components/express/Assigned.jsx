@@ -4,6 +4,7 @@ import TableHeaders from "../utils/TableHeaders";
 import axios from "axios";
 import ItemModal from "../deliveries/modal/Items";
 import Pagination from "../utils/Pagination";
+import AssignModal from "../deliveries/modal/AssignModal";
 
 export default function AssignedTable() {
   const [modalOpen, setModalOpen] = useState();
@@ -14,6 +15,8 @@ export default function AssignedTable() {
   const [pageNumber, setpageNumber] = useState(1);
   const [driverItem, setDriverItem] = useState()
   const [itemModalOpen, setItemModalOpen] = useState();
+  const [driverData, setDriverData] = useState();
+  const [loading,setLoading] = useState()
   const getDeliveryData = () => {
     const token = localStorage.getItem("logisticsAdminToken");
 
@@ -33,8 +36,28 @@ export default function AssignedTable() {
       });
   };
 
+  const getDriverData = () => {
+    const token = localStorage.getItem("logisticsAdminToken");
+    setLoading("loading");
+    var config = {
+      method: "get",
+      url: ` ${process.env.REACT_APP_API}/v1/get-drivers`,
+      headers: { Authorization: `Bearer ${token}` },
+    };
+
+    axios(config)
+      .then(function (response) {
+        setDriverData(response.data?.data);
+        console.log(response.data?.data,"DRIVERS");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
     getDeliveryData();
+    getDriverData();
   }, []);
   const getItems = (data) => {
     setItemData(data);
@@ -54,6 +77,7 @@ export default function AssignedTable() {
   return (
     <div className="pt-7">
       <div class="flex flex-col">
+      <AssignModal modalOpen={modalOpen} setModalOpen={setModalOpen} driverData={driverData} driverItem={driverItem}/>
       <ItemModal
         setModalOpen={setItemModalOpen}
         modalOpen={itemModalOpen}
@@ -159,8 +183,15 @@ export default function AssignedTable() {
                       </td>
 
                       <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      <span className="font-black">{data?.driver?.firstname} {data?.driver?.lastname}</span>
-                      <div>{data?.driver?.phone_no}</div>
+                      <div
+                          onClick={() => {
+                            setDriverItem(data)
+                            setModalOpen("modal-open")
+                        }}
+                          className="bg-[#FFEFDF] font-bold  text-[#E4750D] text-center py-2 px-1 rounded-lg"
+                        >
+                          Assign Driver
+                        </div>
                     </td>
                     </tr>
                   ))}
